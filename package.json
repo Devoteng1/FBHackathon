@@ -1,0 +1,24 @@
+{
+  "name": "fbhackathonapp",
+  "version": "1.0.0",
+  "description": "facebook developer community project ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Devoteng1/FBHackathon.git"
+  },
+  "author": "Developer Group",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Devoteng1/FBHackathon/issues"
+  },
+  "homepage": "https://github.com/Devoteng1/FBHackathon#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "request": "^2.83.0"
+  }
+}

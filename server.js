@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.get('/', function (req, res) {
 res.send('Facebook Developer Circles: Messenger Bot');
@@ -30,7 +31,7 @@ app.post('/webhook', function (req, res) {
          qs: {access_token: 'EAAbriv0mZAWEBADTPQQi6eBiVi8IWexDLUZAX1RZAVZA5jQZAe5h57pSNSECczIuZAvBBMxPTlg5qjX7ljFnVcFfkH2GONUxX1HSJeOtSHMG36yHVKtDmjPAHgLddZA7ZBfF9c8MKZA7Ritjn7EZAVF2JvabKdzAhZASTXqP8yNsFuftgZDZD'},
        method: 'POST',
       json: {recipient: {id: recipientId},
-      message: message,
+      message: message
         }
      }, function(error, response, body) {
     if (error) {

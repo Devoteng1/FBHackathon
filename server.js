@@ -7,6 +7,8 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.get('/', function (req, res) {
 res.send('Facebook Developer Circles: Messenger Bot');
 });
+
+//for Facebook  Verification
 app.get('/webhook', function (req, res) {
      if (req.query['hub.verify_token'] === 'whosoffbot_verify_token') {
       res.status(200).send(req.query['hub.challenge']);
@@ -14,17 +16,47 @@ app.get('/webhook', function (req, res) {
        res.status(403).send('Invalid verify token');
      }
     });
+
 app.post('/webhook', function (req, res) {
    var events = req.body.entry[0].messaging;
       for (i = 0; i < events.length; i++) {
          var event = events[i];
             if (event.message && event.message.text) {
-               sendMessage(event.sender.id, {text: "Echo: " +
-                 event.message.text});
-                  }
-           }
+               if (event.message.text.indexOf('hi') > -1) {
+                    sendMessageWithInitialOptions(event.sender.id);
+                        }
+                   }
+               }
            res.sendStatus(200);
 });
+
+    function sendMessageWithInitialOptions(recipientId) {
+        messageData = {
+               'attachment': {
+                  'type': 'template',
+                  'payload': {
+                     'template_type': 'button',
+                     'text': 'The Developer Community is happy to Welcome you !!!',
+                     'text': 'Please Select an option', 
+                     'buttons': [{
+                         'type': 'postback',
+                         'title': 'Do you need help from the community Click to ask a question',
+                         'payload': 'DO YOU NEED HELP '
+                }, {
+                         'type': 'postback',
+                         'title': 'Do you want  share knowlegde, You are welcome Click to share here',
+                         'payload': 'CONTRIBUTE TO COMMUNITY ',
+                }, {
+                         'type': 'postback',
+                         'title': 'Join this Community',
+                         'payload': 'JOIN COMMUNITY'
+               }]
+            }
+         }
+    };
+sendMessage(recipientId, messageData);
+};     
+    
     function sendMessage(recipientId, message) {
      request({
       url: 'https://graph.facebook.com/v2.6/me/messages',

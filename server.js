@@ -40,15 +40,15 @@ app.post('/webhook', function (req, res) {
                      'text': 'Please Select an option', 
                      'buttons': [{
                          'type': 'postback',
-                         'title': 'Do you need help from the community Click to ask a question',
+                         'title': 'ASK YOUR PROGRAMMING QUESTIONS',
                          'payload': 'DO YOU NEED HELP '
                 }, {
                          'type': 'postback',
-                         'title': 'Do you want  share knowlegde, You are welcome Click to share here',
+                         'title': 'SHARE YOUR KNOWLEDGE',
                          'payload': 'CONTRIBUTE TO COMMUNITY ',
                 }, {
                          'type': 'postback',
-                         'title': 'Join this Community',
+                         'title': 'JOIN OTHER DEVELOPERS',
                          'payload': 'JOIN COMMUNITY'
                }]
             }

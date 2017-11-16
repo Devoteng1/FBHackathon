@@ -40,11 +40,11 @@ app.post('/webhook', function (req, res) {
                      'text': 'Please Select an option', 
                      'buttons': [{
                          'type': 'postback',
-                         'title': 'ASK YOUR PROGRAMMING QUESTIONS',
+                         'title': 'ASK A QUESTIONS',
                          'payload': 'DO YOU NEED HELP '
                 }, {
                          'type': 'postback',
-                         'title': 'SHARE YOUR KNOWLEDGE',
+                         'title': 'SHARE KNOWLEDGE',
                          'payload': 'CONTRIBUTE TO COMMUNITY ',
                 }, {
                          'type': 'postback',

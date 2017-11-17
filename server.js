@@ -2,8 +2,12 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
+var expressValidator = require('express-validator');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
+app.use(expressValidator());
+
 app.get('/', function (req, res) {
 res.send('Facebook Developer Circles: Messenger Bot');
 });
@@ -20,20 +24,16 @@ app.get('/webhook', function (req, res) {
 app.post('/webhook', function (req, res) {
     //var tday;
     var events = req.body.entry[0].messaging;
-    for (i = 0; i < events.length; i++) {
-        var event = events[i];
+   // for (i = 0; i < events.length; i++) {
+       // var event = events[i];
 
         if (event.message && event.message.text) {
-             if (event.message.text.alpha.notEmpty.notInt){
+             if (req.checkBody('events', 'Invalid name').isAlpha().notEmpty()){
                 sendMessageWithInitialOptions(event.sender.id);                
             } 
-            else if (event.message.text.isEmpty) {
                 sendMessage(event.sender.id, {text: " This is empty"});
             }
-        }
-          
-
-    }   
+           
     res.sendStatus(200);
 });
 

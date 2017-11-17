@@ -18,16 +18,23 @@ app.get('/webhook', function (req, res) {
     });
 
 app.post('/webhook', function (req, res) {
-   var events = req.body.entry[0].messaging;
-      for (i = 0; i < events.length; i++) {
-         var event = events[i];
-            if (event.message && event.message.text) {
-               if (event.message.text.indexOf('hi') > -1) {
-                    sendMessageWithInitialOptions(event.sender.id);
-                        }
-                   }
-               }
-           res.sendStatus(200);
+    //var tday;
+    var events = req.body.entry[0].messaging;
+    for (i = 0; i < events.length; i++) {
+        var event = events[i];
+
+        if (event.message && event.message.text) {
+             if (event.message.text.alpha.notEmpty.notInt){
+                sendMessageWithInitialOptions(event.sender.id);                
+            } 
+            else if (event.message.text.isEmpty) {
+                sendMessage(event.sender.id, {text: " This is empty"});
+            }
+        }
+          
+
+    }   
+    res.sendStatus(200);
 });
 
     function sendMessageWithInitialOptions(recipientId) {
@@ -40,7 +47,7 @@ app.post('/webhook', function (req, res) {
                      'text': 'Please Select an option', 
                      'buttons': [{
                          'type': 'postback',
-                         'title': 'ASK A QUESTIONS',
+                         'title': 'ASK A QUESTION',
                          'payload': 'DO YOU NEED HELP '
                 }, {
                          'type': 'postback',

@@ -24,17 +24,19 @@ app.get('/webhook', function (req, res) {
 app.post('/webhook', function (req, res) {
     //var tday;
     var events = req.body.entry[0].messaging;
-   // for (i = 0; i < events.length; i++) {
-       // var event = events[i];
+     for (i = 0; i < events.length; i++) {
+        var event = events[i];
 
         if (event.message && event.message.text) {
-             if (req.checkBody('events', 'Invalid name').isAlpha().notEmpty()){
+             if (req.checkBody('events', 'Please enter a text').isAlpha().notEmpty()){
                 sendMessageWithInitialOptions(event.sender.id);                
             } 
                 sendMessage(event.sender.id, {text: " This is empty"});
             }
+
            
     res.sendStatus(200);
+     }
 });
 
     function sendMessageWithInitialOptions(recipientId) {

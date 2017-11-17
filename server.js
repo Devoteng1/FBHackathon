@@ -27,10 +27,54 @@ app.post('/webhook', function (req, res) {
                  var event = events[i];
                     if (event.message && event.message.text) {
                     sendMessageWithInitialOptions(event.sender.id);
-                    }
+                }
+                     else if (event.postback && event.postback.payload) {
+                             payload = event.postback.payload;
+            // Handle a payload from this sender
+                             console.log(JSON.stringify(payload));          
+                             if (payload == 'SCHEDULE A MEETING') {
+                             sendMessageWithScheduleOptions(event.sender.id);
+                                  }
+                             else if (payload == 'DO YOU NEED HELP') {
+                             sendMessage(event.sender.id, { 'text': 'Please type a question?' });
+                              }
+                             else if (payload == 'CONTRIBUTE TO COMMUNITY') {
+                             sendMessage(event.sender.id, { 'text': 'Please share your knowledges' });
+                             }            
+                              else if (payload=='JOIN COMMUNITY'){                               
+                             sendMessage(event.sender.id, { 'text': 'Please go to the Group page and join' });
+                             }
+            
+                            else  {
+                            sendMessageWithScheduleOptions(event.sender.id);               
+                             }
+        }
           res.sendStatus(200);
          }
 });
+
+function sendMessageWithScheduleOptions(recipientId) {
+    messageData = {
+        'attachment': {
+            'type': 'template',
+            'payload': {
+                'template_type': 'button',
+                'text': 'Select day to schedule a meeting',
+                'buttons': [{
+                    'type': 'postback',
+                    'title': 'Today',
+                    'payload': 'SCHEDULETODAY'
+                }, {
+                    'type': 'postback',
+                    'title': 'Tomorrow',
+                    'payload': 'SCHEDULETOMORROW',
+                }]
+            }
+        }
+    };
+    sendMessage(recipientId, messageData);
+};
+
 
     function sendMessageWithInitialOptions(recipientId) {
         messageData = {
@@ -47,7 +91,7 @@ app.post('/webhook', function (req, res) {
                 }, {
                          'type': 'postback',
                          'title': 'SHARE KNOWLEDGE',
-                         'payload': 'CONTRIBUTE TO COMMUNITY ',
+                         'payload': 'CONTRIBUTE TO COMMUNITY',
                 }, {
                          'type': 'postback',
                          'title': 'JOIN OTHER DEVELOPERS',

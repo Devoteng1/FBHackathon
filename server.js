@@ -23,7 +23,7 @@ app.get('/webhook', function (req, res) {
 
 app.post('/webhook', function (req, res) {
     //var tday;
-    var events = req.body.entry[0].messaging;
+    var events = req.body.entry.text;
 
         if (events.message && events.message.text) {
              //if (req.checkBody('event', 'Please enter a text').isAlpha().notEmpty()===true){

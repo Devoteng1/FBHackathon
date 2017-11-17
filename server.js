@@ -28,7 +28,7 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
 
         if (event.message && event.message.text) {
-             if (req.checkBody('event', 'Please enter a text').isAlpha().notEmpty()===true){
+             //if (req.checkBody('event', 'Please enter a text').isAlpha().notEmpty()===true){
                 sendMessageWithInitialOptions(event.sender.id);                
             } 
                 sendMessage(event.sender.id, {text: " This is empty"});
@@ -36,7 +36,7 @@ app.post('/webhook', function (req, res) {
 
            
     res.sendStatus(200);
-     }
+     
 });
 
     function sendMessageWithInitialOptions(recipientId) {

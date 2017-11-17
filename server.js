@@ -31,10 +31,12 @@ app.post('/webhook', function (req, res) {
              //if (req.checkBody('event', 'Please enter a text').isAlpha().notEmpty()===true){
                 sendMessageWithInitialOptions(event.sender.id);                
             } 
+
+            else{
                 sendMessage(event.sender.id, {text: " This is empty"});
             }
 
-           
+     }
     res.sendStatus(200);
      
 });

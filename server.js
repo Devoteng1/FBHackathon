@@ -22,16 +22,14 @@ app.get('/webhook', function (req, res) {
     });
 
 app.post('/webhook', function (req, res) {
-    //var tday;
-    var events = req.body.entry.text;
-
-        if (events.message && events.message.text) {
-             //if (req.checkBody('event', 'Please enter a text').isAlpha().notEmpty()===true){
-                sendMessageWithInitialOptions(event.sender.id);                
-            } 
-
-    res.sendStatus(200);
-     
+              var events = req.body.entry[0].messaging;
+               for (i = 0; i < events.length; i++) {
+                 var event = events[i];
+                    if (event.message && event.message.text) {
+                    sendMessageWithInitialOptions(event.sender.id);
+                    }
+          res.sendStatus(200);
+         }
 });
 
     function sendMessageWithInitialOptions(recipientId) {
